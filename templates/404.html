@@ -1,0 +1,23 @@
+{% extends 'base_error.html' %}
+
+{% block errortitle %}
+Error | 404 Not Found
+{% endblock errortitle %}
+
+{% block style %}
+.git-logo {
+    width: 1.6em;
+    height: 1.6em;
+}
+{% endblock style %}
+
+{% block body %}
+
+<div class="alert alert-warning" role="alert">
+    <strong>Error 404 - Not Found</strong> Open Issue if you found any.
+    <a href="https://github.com/rugvedkoshiya/Grey-URL-Shortner/issues" target="_blank">
+        <img class="git-logo" width="1em;" height="1em;" src="{{ url_for('static', filename='github_dark.png') }}" alt="GitHub">
+    </a>
+</div>
+
+{% endblock body %}
