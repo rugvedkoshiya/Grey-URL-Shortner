@@ -1,2 +1,4 @@
-URL_Database.db 
 myenv/
+__pycache__/
+
+URL_Database.db 
