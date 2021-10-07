@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect
 import sqlite3
 import validators
 import random
+from nanoid import generate
+
 # import base64
 
 app = Flask(__name__)
@@ -21,17 +23,9 @@ def index():
             params = {'valid_check':'block', 'orignal_url': f'{orignal_url}', 'shorten_url': ''}
             return render_template('index.html', data = params)
 
-
-        alphabat = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-                    'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-                    '0','1','2','3','4','5','6','7','8','9']
-
         # create unique shorten url
         while True:
-            shorten_list = random.sample(alphabat, 5)
-            shorten_url = ''
-            for i in shorten_list:
-                shorten_url += ''.join(i)
+            shorten_url = generate(size=7)
 
             # check that shorten url is not exist
             conn = sqlite3.connect('URL_Database.db')
