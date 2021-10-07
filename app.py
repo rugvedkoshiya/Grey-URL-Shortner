@@ -4,7 +4,9 @@ import validators
 import random
 from nanoid import generate
 
-# import base64
+from config import Config as SETTING
+
+config = SETTING()
 
 app = Flask(__name__)
 
@@ -17,9 +19,7 @@ def index():
         orignal_url = request.form['url']
         # check that url is valid or not
         valid_check = validators.url(orignal_url)
-        if valid_check == True:
-            pass
-        else:
+        if not valid_check:
             params = {'valid_check':'block', 'orignal_url': f'{orignal_url}', 'shorten_url': ''}
             return render_template('index.html', data = params)
 
@@ -43,7 +43,8 @@ def index():
         conn.commit()
         conn.close()
 
-        params = {'valid_check':'none', 'shorten_url': f'https://greyshortner.herokuapp.com/{shorten_url}', 'orignal_url': f'{orignal_url}'}
+        params = {'valid_check':'none', 'shorten_url': f'{config.URL_START + shorten_url}', 'orignal_url': f'{orignal_url}'}
+            
         return render_template('index.html', data = params)
 
 @app.route('/<string:shorten_link>')
@@ -82,4 +83,4 @@ def not_found500(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=config.DEBUG)
